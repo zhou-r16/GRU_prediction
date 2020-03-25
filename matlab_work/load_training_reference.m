@@ -1,30 +1,40 @@
-% load('.\data\training_reference.mat');
+% load('.\data\train\training_reference_2.mat');
 % t = 0:0.005:104; 
 % t = t';
-% y = training_reference(1,:)';
+% y = training_reference(10,:)';
+
+% training_error = [];
+% training_error = [training_error error(:,2)];
 % 
-% % training_error = [];
-% % training_error = [training_error error(:,2)];
+% training_reference_error_2 = training_error(1:10:end,:);
+% training_reference_error_2 = training_reference_error_2';
+% save('.\data\train\training_reference_error_2.mat', 'training_reference_error_2');
+
+% load('.\data\train\training_reference_2.mat');
+% load('.\data\train\training_reference_error_2.mat');
 % 
-% training_reference_error = training_error(1:10:end,:);
-% training_reference_error = training_reference_error';
-% save('.\data\training_reference_error.mat', 'training_reference_error');
+% training_reference(:,end)=[];
+% training_reference_error_2(:,end)=[];
+% 
+% xx = [];
+% yy = [];
+% for i = 1:10
+%     tmp = training_reference(i,:);
+%     xx = [xx;reshape(tmp, 1040, 20)'];
+%     
+%     tmp = training_reference_error_2(i,:);
+%     yy = [yy;reshape(tmp, 1040, 20)'];
+% end
 
-load('.\data\training_reference.mat');
-load('.\data\training_reference_error.mat');
+% save('.\data\train\training_reference_2.mat', 'xx');
+% save('.\data\train\training_reference_error_2.mat', 'yy');
 
-training_reference(:,end)=[];
-training_reference_error(:,end)=[];
-
-x = [];
-y = [];
-for i = 1:10
-    tmp = training_reference(i,:);
-    x = [x;reshape(tmp, 1040, 20)'];
-    
-    tmp = training_reference_error(i,:);
-    y = [y;reshape(tmp, 1040, 20)'];
-end
-
-save('.\data\training_reference.mat', 'x');
-save('.\data\training_reference_error.mat', 'y');
+% load('.\data\train\training_reference.mat');
+% load('.\data\train\training_reference_2.mat');
+% load('.\data\train\training_reference_error.mat');
+% load('.\data\train\training_reference_error_2.mat');
+% x = [x;xx];
+% y = [y;yy];
+% 
+% save('.\data\train\training_reference.mat', 'x');
+% save('.\data\train\training_reference_error.mat', 'y');
