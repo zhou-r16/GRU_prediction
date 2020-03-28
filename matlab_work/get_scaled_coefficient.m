@@ -1,11 +1,11 @@
 load('.\data\train\training_reference.mat');
 load('.\data\train\training_reference_error.mat');
 
-max_X = -inf;
-max_V = -inf;
-max_A = -inf;
-max_J = -inf;
-max_Y = -inf;
+max_X = 0;
+max_V = 0;
+max_A = 0;
+max_J = 0;
+max_Y = 0;
 
 for i = 1:size(x,1)
     origin_X = x(i,:);
@@ -21,11 +21,13 @@ for i = 1:size(x,1)
     
     Y = Y(3:end-2);
     
-    max_X = max(max_X, max(X));
-    max_V = max(max_V, max(V));
-    max_A = max(max_A, max(A));
-    max_J = max(max_J, max(J));
-    max_Y = max(max_Y, max(Y));
+    max_X = max(max_X, abs(max(X)));
+    max_V = max(max_V, abs(max(V)));
+    max_A = max(max_A, abs(max(A)));
+    max_J = max(max_J, abs(max(J)));
+    max_Y = max(max_Y, abs(max(Y)));
 end
 
 scale = [1/max_X 1/max_V 1/max_A 1/max_J 1/max_Y];
+
+

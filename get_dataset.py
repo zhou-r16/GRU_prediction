@@ -34,6 +34,9 @@ def read_data(file_path):
     # 利用shuffle()打乱样本顺序
     dataX, dataY = shuffle(dataX, dataY)
 
+    scio.savemat('matlab_work/data/train/shuffle_x.mat', {'sx': dataX})
+    scio.savemat('matlab_work/data/train/shuffle_y.mat', {'sy': dataY})
+
     return dataX, dataY
 
 

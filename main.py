@@ -3,6 +3,9 @@
 import argparse
 import get_dataset as dataset
 import trainer
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 def gen_config(args):
@@ -14,9 +17,9 @@ def gen_config(args):
     # changing part:
     config['time_step'] = 1  # predict in segment
     config['c_step'] = 1  # continuous time step
-    config['training_epochs'] = 60
-    config['batch_size'] = 128
-    config['learning_rate'] = 5e-3
+    config['training_epochs'] = 1200
+    config['batch_size'] = 32
+    config['learning_rate'] = 1e-4
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
     config['scales'] = [33.0, 647, 9.37e3, 1.31e5, 8.59e3]  # 前4个分别对应X,V,A,J，最后一个对应error
@@ -44,12 +47,11 @@ def gen_config(args):
 
 
 def run(config):
-    X, Y = dataset.read_data(config['file_path'])
-
     mytrainer = trainer.Trainer(config)
-    mytrainer.add_data(X, Y)
 
     if config['mode'] == 'train':
+        X, Y = dataset.read_data(config['file_path'])
+        mytrainer.add_data(X, Y)
         mytrainer.train()
     elif config['mode'] == 'test':
         mytrainer.test()

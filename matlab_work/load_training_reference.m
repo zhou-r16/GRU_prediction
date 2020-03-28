@@ -1,7 +1,7 @@
-% load('.\data\train\training_reference_2.mat');
-% t = 0:0.005:104; 
-% t = t';
-% y = training_reference(10,:)';
+load('.\data\train\training_reference.mat');
+t = 0:0.005:5.195; 
+t = t';
+y = x(13,:)';
 
 % training_error = [];
 % training_error = [training_error error(:,2)];
