@@ -22,7 +22,7 @@ def gen_config(args):
     config['learning_rate'] = 1e-4
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
-    config['scales'] = [33.0, 647, 9.37e3, 1.31e5, 8.59e3]  # 前4个分别对应X,V,A,J，最后一个对应error
+    config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error
 
     # GRU的输入量长度为12
     # Input(t0)= (X(t0-1),V(t0-1),A(t0-1),J(t0-1),X(t0),V(t0),A(t0),J(t0),X(t0+1),V(t0+1),A(t0+1),J(t0+1))
@@ -42,7 +42,7 @@ def gen_config(args):
         config['restore'] = True
 
     # the name of saved model
-    config['model_name'] = '{}_model_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
+    config['model_name'] = '{}_model2_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
     return config
 
 
