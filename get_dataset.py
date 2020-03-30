@@ -27,15 +27,15 @@ def read_mat(filename):
 #  将mat中的数据读取后进行打乱
 def read_data(file_path):
     # 读取x，y的mat文件
-    dataX = read_mat('{}/training_reference.mat'.format(file_path))
-    dataY = read_mat('{}/training_reference_error.mat'.format(file_path))
+    dataX = read_mat('{}/x.mat'.format(file_path))
+    dataY = read_mat('{}/y.mat'.format(file_path))
     print('data shape is {}'.format(dataX.shape))
 
     # 利用shuffle()打乱样本顺序
     dataX, dataY = shuffle(dataX, dataY)
 
-    scio.savemat('matlab_work/data/train/shuffle_x.mat', {'sx': dataX})
-    scio.savemat('matlab_work/data/train/shuffle_y.mat', {'sy': dataY})
+    # scio.savemat('matlab_work/data/train/shuffle_x.mat', {'sx': dataX})
+    # scio.savemat('matlab_work/data/train/shuffle_y.mat', {'sy': dataY})
 
     return dataX, dataY
 

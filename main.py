@@ -1,5 +1,5 @@
 # main function is used to make all configurations and making results
-
+# -*- coding:utf-8 -*-
 import argparse
 import get_dataset as dataset
 import trainer
@@ -17,12 +17,14 @@ def gen_config(args):
     # changing part:
     config['time_step'] = 1  # predict in segment
     config['c_step'] = 1  # continuous time step
-    config['training_epochs'] = 1200
+    config['training_epochs'] = 100
     config['batch_size'] = 32
     config['learning_rate'] = 1e-4
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
-    config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error
+    # config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error
+    # config['scales'] = [20.0, 354, 1.69e4, 1.445e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error（没除以2
+    config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 3.88e5]  # 前4个分别对应X,V,A,J，最后一个对应error
 
     # GRU的输入量长度为12
     # Input(t0)= (X(t0-1),V(t0-1),A(t0-1),J(t0-1),X(t0),V(t0),A(t0),J(t0),X(t0+1),V(t0+1),A(t0+1),J(t0+1))
@@ -35,7 +37,7 @@ def gen_config(args):
     config['file_path'] = 'matlab_work/data/train'
 
     # log structure
-    config['save'] = True
+    config['save'] = False
     if (config['mode'] == 'train') and (not config['continue']):
         config['restore'] = False
     else:
