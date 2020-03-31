@@ -85,5 +85,5 @@ y=y';
 1/max(max(abs(y)))
 % save('../im_data.mat', 'x');1
 save('../../data/train/x.mat', 'x');
-save('../../data/train/y.mat', 'x');
+save('../../data/train/y.mat', 'y');
 % save('../train/yb.mat', 'yb');

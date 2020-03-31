@@ -17,12 +17,12 @@ def gen_config(args):
     # changing part:
     config['time_step'] = 1  # predict in segment
     config['c_step'] = 1  # continuous time step
-    config['training_epochs'] = 100
+    config['training_epochs'] = 1500
     config['batch_size'] = 32
     config['learning_rate'] = 1e-4
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
-    config['scales'] = [14.1, 645.4, 1.41e4, 2.38e5, 1.439e4]  # 前4个分别对应X,V,A,J，最后一个对应error
+    config['scales'] = [20.1, 793.0, 1.69e4, 2.89e5, 2.11e4]  # 前4个分别对应X,V,A,J，最后一个对应error
     # GRU的输入量长度为12
     # Input(t0)= (X(t0-1),V(t0-1),A(t0-1),J(t0-1),X(t0),V(t0),A(t0),J(t0),X(t0+1),V(t0+1),A(t0+1),J(t0+1))
     config['dim'] = 4 * (config['c_step'] * 2 + config['time_step'])
@@ -63,8 +63,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='config for plant & network & mode')
     parser.add_argument('-p', '--plant', default='pid')
     parser.add_argument('-n', '--network', default='rnn')
-    parser.add_argument('-m', '--mode', default='train', choices=['train', 'validation', 'implement'])
-    parser.add_argument('-c', '--cont', default=True, choices=[True, False])
+    parser.add_argument('-m', '--mode', default='train', choices=['train', 'test', 'implement'])
+    parser.add_argument('-c', '--cont', default=False, choices=[True, False])
     args = parser.parse_args()
     config = gen_config(args)
     run(config)

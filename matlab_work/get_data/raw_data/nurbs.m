@@ -57,6 +57,7 @@ t = 0:1/fs:90;
 t = t';
 
 data_in = [t a]; % Simulink系统的输入
+compensation = [t zeros(180001,1)];% Simulink系统的补偿
 
 % save(['./input1_5.txt'],'a','-ascii')
 % save(['./compenx.txt'],'cx3','-ascii')
