@@ -1,5 +1,5 @@
-load('.\data\train\x.mat');
-load('.\data\train\y.mat');
+load('data/train/x.mat');
+load('data/train/y.mat');
 
 max_X = 0;
 max_V = 0;
@@ -28,6 +28,7 @@ for i = 1:size(x,1)
     max_Y = max(max_Y, abs(max(Y)));
 end
 
+% 最终的config['scales']数组
 scale = [1/max_X 1/max_V 1/max_A 1/max_J 1/max_Y];
 
 

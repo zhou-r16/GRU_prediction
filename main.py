@@ -22,10 +22,7 @@ def gen_config(args):
     config['learning_rate'] = 1e-4
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
-    # config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error
-    # config['scales'] = [20.0, 354, 1.69e4, 1.445e5, 7.43e3]  # 前4个分别对应X,V,A,J，最后一个对应error（没除以2
-    config['scales'] = [20.0, 709.5, 1.69e4, 2.89e5, 3.88e5]  # 前4个分别对应X,V,A,J，最后一个对应error
-
+    config['scales'] = [14.1, 645.4, 1.41e4, 2.38e5, 1.439e4]  # 前4个分别对应X,V,A,J，最后一个对应error
     # GRU的输入量长度为12
     # Input(t0)= (X(t0-1),V(t0-1),A(t0-1),J(t0-1),X(t0),V(t0),A(t0),J(t0),X(t0+1),V(t0+1),A(t0+1),J(t0+1))
     config['dim'] = 4 * (config['c_step'] * 2 + config['time_step'])
@@ -37,14 +34,14 @@ def gen_config(args):
     config['file_path'] = 'matlab_work/data/train'
 
     # log structure
-    config['save'] = False
+    config['save'] = True
     if (config['mode'] == 'train') and (not config['continue']):
         config['restore'] = False
     else:
         config['restore'] = True
 
     # the name of saved model
-    config['model_name'] = '{}_model2_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
+    config['model_name'] = '{}_model_zr_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
     return config
 
 
@@ -67,7 +64,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--plant', default='pid')
     parser.add_argument('-n', '--network', default='rnn')
     parser.add_argument('-m', '--mode', default='train', choices=['train', 'validation', 'implement'])
-    parser.add_argument('-c', '--cont', default=False, choices=[True, False])
+    parser.add_argument('-c', '--cont', default=True, choices=[True, False])
     args = parser.parse_args()
     config = gen_config(args)
     run(config)
