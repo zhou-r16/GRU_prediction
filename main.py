@@ -14,6 +14,9 @@ def gen_config(args):
     config['mode'] = args.mode
     config['network'] = args.network
     config['continue'] = args.cont
+    # implement时使用，为case的编号
+    config['case_num'] = args.imple
+
     # changing part:
     config['time_step'] = 1  # predict in segment
     config['c_step'] = 1  # continuous time step
@@ -32,6 +35,8 @@ def gen_config(args):
 
     # params for signals:
     config['file_path'] = 'matlab_work/data/train'
+
+
 
     # log structure
     config['save'] = True
@@ -63,8 +68,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='config for plant & network & mode')
     parser.add_argument('-p', '--plant', default='pid')
     parser.add_argument('-n', '--network', default='rnn')
-    parser.add_argument('-m', '--mode', default='train', choices=['train', 'test', 'implement'])
-    parser.add_argument('-c', '--cont', default=False, choices=[True, False])
+    parser.add_argument('-m', '--mode', default='implement', choices=['train', 'test', 'implement'])
+    parser.add_argument('-c', '--cont', default=True, choices=[True, False])
+    parser.add_argument('-i', '--imple', default=2)
     args = parser.parse_args()
     config = gen_config(args)
     run(config)

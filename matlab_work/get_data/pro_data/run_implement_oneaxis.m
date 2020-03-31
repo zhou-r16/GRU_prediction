@@ -2,11 +2,12 @@
 clc
 clear
 %% 1. read data:
-Start = 24;
-End = 24;
+case_num = 2;
+Start = case_num;
+End = case_num;
 filenames = cell((End-Start+1), 1);
 for i=1:1:(End-Start+1)
-filenames(i) = {sprintf('./pro_data/error/pid/%d.mat', i+Start-1)};
+filenames(i) = {sprintf('./from_raw_data/for_implement/%d.mat', i+Start-1)};
 end
 
 % neccessary datas:
@@ -80,7 +81,7 @@ x2 = down_sample(x2, 10);
 x3 = down_sample(x3, 10);
 x4 = down_sample(x4, 10);
 
-y = down_sample(y, 10);
+% y = down_sample(y, 10);
 
 x(:,:,1) = x1'; %px
 % x(:,:,2) = x2'; %vx
@@ -92,8 +93,9 @@ for i=1:1:length(x(1,1,:))
 end
 
 y=y';
-1/max(abs(y))
-save('./im_data.mat', 'x');
+% 1/max(abs(y))
+file_im_data = {sprintf('../../data/implement/case%d/im_data.mat', case_num)};
+save(file_im_data{1}, 'x');
 % save('../x.mat', 'x');
 % save('../y.mat', 'y');
 % save('../train/yb.mat', 'yb');

@@ -2,7 +2,8 @@ clear all
 close all
 
 N = 3; % 边缘光滑阶次
-T = 80;  % 运行时间|  110 for train and 10 for test:
+% T = 80;  % 运行时间(for train）
+T = 60;  % 运行时间（for implement）
 A = 0.025; % 运行幅值
 fs = 2000;
 
@@ -45,19 +46,28 @@ jjx(length(sigx))=0-jx(length(sigx))*fs;
 plot(jjx)
 
 a = sigx;
-compen = zeros(1,length(sigx))';
+% compen = zeros(1,length(sigx))';
 % save input1_5.txt -ascii a
 % save compenx.txt -ascii compen
 
-cx3 = zeros(180000,1);
-compena3 = zeros(180000,1);
+% cx3 = zeros(180000,1);
+% compena3 = zeros(180000,1);
 
-% Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s
-t = 0:1/fs:90;
+%% （for train）Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s %
+% t = 0:1/fs:90;
+% t = t';
+% data_in = [t a]; % Simulink系统的输入
+% compensation = [t zeros(180001,1)];% Simulink系统的补偿
+
+%% （for implement）Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s 
+t = 0:1/fs:70;
 t = t';
-
 data_in = [t a]; % Simulink系统的输入
-compensation = [t zeros(180001,1)];% Simulink系统的补偿
+compensation = [t zeros(140001,1)];% Simulink系统的补偿
+
+
+% x = a';
+% save('../../data/implement/im_data.mat','x');
 
 % save(['./input1_5.txt'],'a','-ascii')
 % save(['./compenx.txt'],'cx3','-ascii')

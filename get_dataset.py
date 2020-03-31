@@ -118,9 +118,9 @@ def process_x_for_implementation(origin_X, config):
     :param config: 配置信息
     :return: 处理后的用于implementation的数据，形状为(,12)
     """
+
     # 全部变成列向量，便于后续操作
-    if len(origin_X.shape) == 1:
-        origin_X = origin_X[:, np.newaxis]  # 增加维数（例如：N → N×1）
+    origin_X = origin_X.reshape([-1, 1])
 
     V_tmp = origin_X[1:] - origin_X[:-1]
     A = V_tmp[1:] - V_tmp[:-1]
@@ -143,7 +143,11 @@ def process_x_for_implementation(origin_X, config):
     for i in range(implementation_data_num):  # 遍历所有的数据
         output_X.append(processed_X[i * _t:(i + 1) * _t + 2 * config['c_step']].ravel())  # 确定input vector
 
-    # 将output_X,output_Y转化为ndarray对象
+    # 将output_X转化为ndarray对象
     output_X = np.asarray(output_X, dtype=np.float32)
+
+    if len(output_X.shape) == 2:
+        output_X = output_X[np.newaxis, :, :]
+        # print(output_X.shape)
 
     return output_X
